@@ -34,8 +34,10 @@ object Sequences: // Essentially, generic linkedlists
       case Cons(h,t) if n > 0 => Cons(h, take[A](t)(n-1))
       case _ => Nil()
     
-    
-    def concat[A](l1: Sequence[A], l2: Sequence[A]): Sequence[A] = ???
+    def concat[A](l1: Sequence[A], l2: Sequence[A]): Sequence[A] = l1 match
+      case(Cons(a,b)) => Cons(a, concat(b, l2))
+      case _ => l2
+  
     def flatMap[A, B](l: Sequence[A])(mapper: A => Sequence[B]): Sequence[B] = ???
 
     def min(l: Sequence[Int]): Optional[Int] = ???
