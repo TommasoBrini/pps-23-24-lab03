@@ -23,10 +23,18 @@ object Sequences: // Essentially, generic linkedlists
     
     def map[A, B](l: Sequence[A])(mapper: A => B): Sequence[B] = flatMap(l)(a => Cons(mapper(a), Nil()))
        
+    /*
     def filter[A](l1: Sequence[A])(pred: A => Boolean): Sequence[A] = l1 match
       case Cons(h, t) if pred(h) => Cons(h, filter(t)(pred))
       case Cons(_, t)            => filter(t)(pred)
       case Nil()                 => Nil()
+    */
+
+    def filter[A](l1: Sequence[A])(pred: A => Boolean): Sequence[A] = 
+      flatMap(l1)(k => pred(k) match
+        case true => Cons(k, Nil())
+        case _ => Nil()
+      ) 
 
     // Lab 03
     def zip[A, B](first: Sequence[A], second: Sequence[B]): Sequence[(A, B)] = (first, second) match
