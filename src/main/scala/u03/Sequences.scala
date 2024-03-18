@@ -54,8 +54,16 @@ object Sequences: // Essentially, generic linkedlists
       case Cons(a,b) => concat(mapper(a),flatMap(b)(mapper))
       case _ => Nil()
 
-
-    def min(l: Sequence[Int]): Optional[Int] = ???
+    def min(l: Sequence[Int]): Optional[Int] = l match
+      case Nil() => Optional.Empty()
+      case Cons(a, Nil()) => Optional.Just(a)
+      case Cons(a, b) => min(b) match
+        case Optional.Just(x) => (a < x) match
+          case true => Optional.Just(a) 
+          case _ => Optional.Just(x) 
+        case Optional.Empty() => Optional.Empty()
+      
+    
     
 @main def trySequences =
   import Sequences.* 
