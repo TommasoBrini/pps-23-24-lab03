@@ -159,3 +159,10 @@ object Streams:
     def takeWhile[A](stream: Stream[A])(pred: A => Boolean): Stream[A] = stream match
       case Cons(head, tail) if pred(head()) => cons(head(), takeWhile(tail())(pred))
       case _ => Empty()
+
+    def fill[A](n: Int)(s: A): Stream[A] = n match
+      case 0 => Empty()
+      case _ => Cons(() => s, () => fill(n-1)(s))
+      
+    
+

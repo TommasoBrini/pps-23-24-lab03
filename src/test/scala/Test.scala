@@ -132,3 +132,4 @@ class TestTask3:
 
     @Test def testFill(): Unit =
         assertEquals(Cons("a", Cons("a", Cons("a", Nil()))), Stream.toList(Stream.fill(3)("a")))
+        assertEquals(Cons(1, Cons(1, Cons(1, Cons(1, Nil())))), Stream.toList(Stream.fill(4)(1)))
