@@ -133,3 +133,7 @@ class TestTask3:
     @Test def testFill(): Unit =
         assertEquals(Cons("a", Cons("a", Cons("a", Nil()))), Stream.toList(Stream.fill(3)("a")))
         assertEquals(Cons(1, Cons(1, Cons(1, Cons(1, Nil())))), Stream.toList(Stream.fill(4)(1)))
+
+    @Test def testPell(): Unit =
+        val pell: Stream[Int] = Stream.pell()
+        assertEquals(Cons(0, Cons(1, Cons(2, Cons(5, Cons(12, Nil()))))), Stream.toList(Stream.take(pell)(5)))

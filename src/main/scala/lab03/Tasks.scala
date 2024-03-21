@@ -2,6 +2,7 @@ package lab03
 
 import lab03.Sequences.Sequence.flatMap
 import u03.Optionals.*
+import u02.DefinedFunctions.abs
 
 // TASK 1 (list) svolto da solo
 object Sequences: // Essentially, generic linkedlists
@@ -161,8 +162,13 @@ object Streams:
       case _ => Empty()
 
     def fill[A](n: Int)(s: A): Stream[A] = n match
-      case 0 => Empty()
-      case _ => Cons(() => s, () => fill(n-1)(s))
-      
-    
+      case 0 => empty()
+      case _ => cons(s, fill(n-1)(s))
 
+    def pell(): Stream[Int] =
+      def generatePell(p_1: Int, p_2: Int): Stream[Int] = 
+        var nextPell = 2 * p_2 + p_1
+        cons(p_1, generatePell(p_2, nextPell))
+      val p0 = 0
+      val p1 = 1
+      generatePell(p0, p1)
