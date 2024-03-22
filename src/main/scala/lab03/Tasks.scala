@@ -165,10 +165,15 @@ object Streams:
       case 0 => empty()
       case _ => cons(s, fill(n-1)(s))
 
-    def pell(): Stream[Int] =
-      def generatePell(p_1: Int, p_2: Int): Stream[Int] = 
-        var nextPell = 2 * p_2 + p_1
-        cons(p_1, generatePell(p_2, nextPell))
-      val p0 = 0
-      val p1 = 1
-      generatePell(p0, p1)
+    def pell(): Stream[Int] = 
+      def calculatePell(n: Int): Int = n match
+        case 0 => 0
+        case 1 => 1
+        case _ => 2 * calculatePell(n - 1) + calculatePell(n - 2)
+        
+      def generatePell(n: Int): Stream[Int] = 
+        cons(calculatePell(n), generatePell(n + 1))
+      
+      generatePell(0)
+
+    
